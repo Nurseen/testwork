@@ -21,14 +21,16 @@ window.onclick = function(event) {
 
 let elements = document.querySelectorAll('textarea');
 
-(function(elements) {
-console.log(elements[0])
-let id = elements[0].getAttribute('id');
-console.log(id)
-})
-
-localStorage.setItem(id, elements.value);
-
+for (i=0; i<elements.length; i++) {
+ (function(element) {
+   var id = element.getAttribute('id');
+   element.value = localStorage.getItem(id); 
+   element.oninput = function() {
+     localStorage.setItem(id, element.value);
+     checkValidity();
+   };
+ })(elements[i]);
+}
 
 
 // elements.oninput = function() { };
